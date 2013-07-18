@@ -1,0 +1,17 @@
+<iframe id="content" src="about:blank" width="100%" height="100%"></iframe>
+
+<script type="text/javascript">
+$(document).ready(function(){
+        links = new Array( <%= @sitelist.map { |site| "'#{site.url}'"}.join(",") %>);
+        index=0; 
+        function nextLink(){
+                document.getElementById('content').src=links[index];
+                console.log(links[index]);
+                index = (index+1) % links.length;
+        }
+
+        nextLink();
+
+        window.setInterval(nextLink, 9000);
+});
+</script>

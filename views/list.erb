@@ -1,0 +1,43 @@
+<table border=1>
+<% for site in @sitelist %>
+<tr> 
+    <td>
+        <table>
+            <tr>
+    <form action="/edit/<%= site.id %>" method="post">
+        <td> <input type="checkbox" name="active" <%= "checked" if site.active %> /> </td>
+        <td> <input type="text" name="label" value="<%= site.label %>" /> </td>
+        <td> <input type="text" name="url" value="<%= site.url %>" /> </td>
+        <td> <input type="submit" value="Save" /> </td>
+    </form>
+            </tr>
+        </table>
+    </td>
+
+    <td valign="center">
+        <form action="/delete/<%= site.id %>" method="post">
+            <input type="hidden" name="_method" value="DELETE" />
+            <input type="submit" value="Delete" class="confirm-button" />
+        </form>
+    </td>
+</td>
+<% end %>
+</table>
+
+<h2>Add new</h2>
+
+<form action="/add" method="post">
+Label:    <input type="text" name="label" value="Label" />
+URL:    <input type="text" name="url" value="http://" />
+Active:    <input type="checkbox" name="active" />
+
+<input type="submit" value="add" />
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".confirm-button").click(function(obj){
+            return confirm("Are you sure to delete?");
+        });
+    });
+</script>
