@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130718092301) do
+ActiveRecord::Schema.define(version: 20130718153628) do
+
+  create_table "conflines", force: true do |t|
+    t.string "name"
+    t.string "value"
+  end
 
   create_table "sites", force: true do |t|
     t.string  "label"

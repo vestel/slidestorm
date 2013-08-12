@@ -2,16 +2,54 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-        links = new Array( <%= @sitelist.map { |site| "'#{site.url}'"}.join(",") %>);
-        index=0; 
+        links = new Array();
+        refreshRate = <%= @refreshRate %>;
+        index=0;
+        cdata = 0;
+        var active = false;
+        var timeout;
+
+        checkJSON();
+
         function nextLink(){
                 document.getElementById('content').src=links[index];
-                console.log(links[index]);
+                console.log("Show: "+links[index]);
                 index = (index+1) % links.length;
+                if (index==0){
+                    console.log("Full loop done");
+                    links = new Array();
+                    checkJSON();
+                }
+                emergencySwitch();
+                timeout = setTimeout(function(){nextLink()}, refreshRate);
         }
 
-        nextLink();
+        function checkJSON(){
+            $.getJSON('/active.json', function(data){
+                console.log("Data:"+data);
+                data.map(function(item){
+                    links.push(item.url);
+                    console.log("Loaded:"+item.url);
+                });
+                if (!active) {
+                    activate();
+                }
+            });
+        }
 
-        window.setInterval(nextLink, 9000);
+        function emergencySwitch(){
+            $.getJSON('/emergency.json', function(data){
+                if (data.value!="0") {
+                    location.reload(); 
+                }
+            });
+
+        }
+
+        function activate(){
+            active = true;
+            nextLink();
+        }
+
 });
 </script>
