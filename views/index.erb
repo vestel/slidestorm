@@ -25,7 +25,7 @@ $(document).ready(function(){
         }
 
         function checkJSON(){
-            $.getJSON('/active.json', function(data){
+            $.getJSON('active.json', function(data){
                 console.log("Data:"+data);
                 data.map(function(item){
                     links.push(item.url);
@@ -38,7 +38,7 @@ $(document).ready(function(){
         }
 
         function emergencySwitch(){
-            $.getJSON('/emergency.json', function(data){
+            $.getJSON('emergency.json', function(data){
                 if (data.value!="0") {
                     location.reload(); 
                 }
