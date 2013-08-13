@@ -2,14 +2,14 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-        links = new Array();
+        links = new Array(<%= @links.map { |link| "'#{link.url}'"}.join(", ") %>);
         refreshRate = <%= @refreshRate %>;
         index=0;
         cdata = 0;
         var active = false;
         var timeout;
 
-        checkJSON();
+        activate();
 
         function nextLink(){
                 document.getElementById('content').src=links[index];
@@ -17,33 +17,9 @@ $(document).ready(function(){
                 index = (index+1) % links.length;
                 if (index==0){
                     console.log("Full loop done");
-                    links = new Array();
-                    checkJSON();
-                }
-                emergencySwitch();
-                timeout = setTimeout(function(){nextLink()}, refreshRate);
-        }
-
-        function checkJSON(){
-            $.getJSON('active.json', function(data){
-                console.log("Data:"+data);
-                data.map(function(item){
-                    links.push(item.url);
-                    console.log("Loaded:"+item.url);
-                });
-                if (!active) {
-                    activate();
-                }
-            });
-        }
-
-        function emergencySwitch(){
-            $.getJSON('emergency.json', function(data){
-                if (data.value!="0") {
                     location.reload(); 
                 }
-            });
-
+                timeout = setTimeout(function(){nextLink()}, refreshRate);
         }
 
         function activate(){

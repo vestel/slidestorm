@@ -9,11 +9,11 @@ get '/' do
     @refreshRate = refreshObj.value 
     rebooted = Confline.find_by_name('emergency')
     rebooted.update_attributes({value:"0"}) if rebooted
+    @links = Site.where({active:"t"}).all
     erb :index 
 end
 
 get '/active.json' do
-    Site.where({active:"t"}).all.to_json
 end
 
 get '/emergency.json' do
