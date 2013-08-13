@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/activerecord"
 
+set :database, 'sqlite:///database.sqlite'
 require './models.rb'
 
 get '/' do
