@@ -4,7 +4,7 @@
     <td>
         <table>
             <tr>
-    <form action="/config/site/edit/<%= site.id %>" method="post">
+    <form action="site/edit/<%= site.id %>" method="post">
         <td> <input type="checkbox" name="active" <%= "checked" if site.active %> /> </td>
         <td> <input type="text" name="label" value="<%= site.label %>" /> </td>
         <td> <input type="text" name="url" value="<%= site.url %>" /> </td>
@@ -15,7 +15,7 @@
     </td>
 
     <td valign="center">
-        <form action="/config/site/delete/<%= site.id %>" method="post">
+        <form action="site/delete/<%= site.id %>" method="post">
             <input type="hidden" name="_method" value="DELETE" />
             <input type="submit" value="Delete" class="confirm-button" />
         </form>
@@ -26,7 +26,7 @@
 
 <h2>Add new</h2>
 
-<form action="/config/site/add" method="post">
+<form action="site/add" method="post">
 Label:    <input type="text" name="label" value="Label" />
 URL:    <input type="text" name="url" value="http://" />
 Active:    <input type="checkbox" name="active" />
@@ -34,12 +34,12 @@ Active:    <input type="checkbox" name="active" />
 <input type="submit" value="add" />
 </form>
 
-<form action="/config/confline/refresh" method="post">
+<form action="confline/refresh" method="post">
     RefreshRate:    <input type="text" name="value" value="<%= @refresh.value %>" />
     <input type="submit" value="Change" />
 </form>
 
-<form action="/config/confline/emergency" method="post">
+<form action="confline/emergency" method="post">
     <input type="hidden" name="value" value="1" />
     <input type="submit" value="Apply" class="confirm-button" />
 </form>
